@@ -1,0 +1,22 @@
+<form nz-form [autocomplete]="'off'">
+  <div class="btn-wrapper" nz-flex [nzGap]="'1'" [nzWrap]="'wrap'">
+    <nz-form-item>
+      <nz-form-label nzFor="almacen">Almacén</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input id="almacen" nz-input nzSize="small" class="" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzFor="hasta" nzLabelAlign="right">Hasta</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input id="hasta" nz-input nzSize="small" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <button nz-button [nzSize]="'small'" nzType="primary" class="mt-1">
+      <span nz-icon nzType="search"></span>
+      Search
+    </button>
+
+  </div>
+</form>

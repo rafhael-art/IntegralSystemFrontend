@@ -199,9 +199,10 @@
             <ul nz-menu nzMode="inline">
               <li nz-submenu nzTitle="Navigation Two" nzIcon="appstore">
                 <ul>
-                  <li nz-menu-item>Option 5</li>
-                  <li nz-menu-item>Option 6</li>
-
+                  <li nz-menu-item (click)="selectMenuItem('compras', 'Option 5')"
+                    [nzSelected]="selectedMenuItemCompras === 'Option 5'">Option 5</li>
+                  <li nz-menu-item (click)="selectMenuItem('compras', 'Option 6')"
+                    [nzSelected]="selectedMenuItemCompras === 'Option 6'">Option 6</li>
                 </ul>
               </li>
             </ul>
@@ -215,9 +216,10 @@
             <ul nz-menu nzMode="inline">
               <li nz-submenu nzTitle="Navigation Two" nzIcon="appstore">
                 <ul>
-                  <li nz-menu-item>Option 5</li>
-                  <li nz-menu-item>Option 6</li>
-
+                  <li nz-menu-item (click)="selectMenuItem('ventas', 'Option 5')"
+                    [nzSelected]="selectedMenuItemVentas === 'Option 5'">Option 5</li>
+                  <li nz-menu-item (click)="selectMenuItem('ventas', 'Option 6')"
+                    [nzSelected]="selectedMenuItemVentas === 'Option 6'">Option 6</li>
                 </ul>
               </li>
             </ul>
@@ -228,11 +230,11 @@
           <h2 class="text-xl p-4 text-center">Almacén</h2>
           <div class="flex-1 px-4 space-y-2 overflow-hidden hover:overflow-auto">
             <ul nz-menu nzMode="inline">
-              <li nz-submenu nzTitle="Navigation Two" nzIcon="appstore">
+              <li nz-submenu nzTitle="Consultas" nzIcon="appstore">
                 <ul>
-                  <li nz-menu-item>Option 5</li>
-                  <li nz-menu-item>Option 6</li>
-
+                  <li nz-menu-item (click)="selectMenuItem('almacen', 'Consulta stock por almacén a una fecha')"
+                    [nzSelected]="selectedMenuItemAlmacen === 'Consulta stock por almacén a una fecha'">Consulta stock
+                    por almacén a una fecha</li>
                 </ul>
               </li>
             </ul>
@@ -245,9 +247,10 @@
             <ul nz-menu nzMode="inline">
               <li nz-submenu nzTitle="Navigation Two" nzIcon="appstore">
                 <ul>
-                  <li nz-menu-item>Option 5</li>
-                  <li nz-menu-item>Option 6</li>
-
+                  <li nz-menu-item (click)="selectMenuItem('contabilidad', 'Option 5')"
+                    [nzSelected]="selectedMenuItemContabilidad === 'Option 5'">Option 5</li>
+                  <li nz-menu-item (click)="selectMenuItem('contabilidad', 'Option 6')"
+                    [nzSelected]="selectedMenuItemContabilidad === 'Option 6'">Option 6</li>
                 </ul>
               </li>
             </ul>
@@ -258,11 +261,12 @@
           <h2 class="text-xl p-4 text-center">Contabilidad</h2>
           <div class="flex-1 px-4 space-y-2 overflow-hidden hover:overflow-auto">
             <ul nz-menu nzMode="inline">
-              <li nz-submenu nzTitle="Navigation Two" nzIcon="appstore">
+              <li nz-submenu nzTitle="Navigation One" nzIcon="appstore">
                 <ul>
-                  <li nz-menu-item>Option 5</li>
-                  <li nz-menu-item>Option 6</li>
-
+                  <li nz-menu-item (click)="selectMenuItem('contabilidad', 'Option 5')"
+                    [nzSelected]="selectedMenuItemContabilidad === 'Option 5'">Option 5</li>
+                  <li nz-menu-item (click)="selectMenuItem('contabilidad', 'Option 6')"
+                    [nzSelected]="selectedMenuItemContabilidad === 'Option 6'">Option 6</li>
                 </ul>
               </li>
             </ul>
@@ -275,18 +279,21 @@
             <ul nz-menu nzMode="inline">
               <li nz-submenu nzTitle="Navigation Two" nzIcon="appstore">
                 <ul>
-                  <li nz-menu-item>Option 5</li>
-                  <li nz-menu-item>Option 6</li>
-
+                  <li nz-menu-item (click)="selectMenuItem('sistema', 'Option 5')"
+                    [nzSelected]="selectedMenuItemSistema === 'Option 5'">Option 5</li>
+                  <li nz-menu-item (click)="selectMenuItem('sistema', 'Option 6')"
+                    [nzSelected]="selectedMenuItemSistema === 'Option 6'">Option 6</li>
                 </ul>
               </li>
             </ul>
           </div>
         </section>
 
+
       </div>
     </div>
-    <div class="flex flex-col flex-1 m-2 p-4 rounded-s bg-white overflow-auto">
+    <div class="flex flex-col flex-1 p-4 bg-white overflow-auto">
+      <app-breadcrumb></app-breadcrumb>
       <router-outlet></router-outlet>
     </div>
   </div>

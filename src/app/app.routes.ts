@@ -11,7 +11,12 @@ export const routes: Routes = [
       },
       {
         path: '**',
-        redirectTo: 'home'
+        redirectTo: 'almacen'
+      },
+      {
+        path: 'almacen',
+        loadComponent: () => import('./view/modules/almacen/consultas/stock-almacen-fecha/stock-almacen-fecha.component')
+
       }
     ]
   }
