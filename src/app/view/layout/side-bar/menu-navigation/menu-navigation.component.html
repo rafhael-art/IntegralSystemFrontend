@@ -1,0 +1,46 @@
+<div class="sidebar-menu">
+  <h2 class=" w-full text-xl p-4 text-center">{{currentModule.nombre}}</h2>
+  <ul class="mt-4">
+
+    @if (currentModule) {
+
+    @for (opcion of getOpciones(currentModule.id); track $index) {
+
+    @if (opcion.url!.trim() !='') {
+    <li class="mb-1 group">
+      <a [routerLink]="opcion.url"
+        class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-sm group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+        <i class="ri-home-2-line mr-3 text-lg"></i>
+        <span class="text-sm">{{opcion.nombre}}</span>
+      </a>
+    </li>
+    } <!-- END @if (item.tipo == 'Subopción') -->
+
+    @if (opcion.url == '') {
+    <li class="mb-1 group">
+      <a id="{{opcion.nombre}}"
+        [class]="'text-sm flex items-center py-1 px-2 text-gray-800   rounded-sm   group-[.active]:text-blue-400  group-[.selected]:text-blue-400 sidebar-dropdown-toggle '">
+        <span nz-icon nzType="{{opcion.icono}}" nzTheme="outline" class="mr-3 text-lg leading-[0]"></span>
+        <span class="text-sm">{{opcion.nombre}}</span>
+        <span nz-icon nzType="right" nzTheme="outline" class="ml-auto group-[.selected]:rotate-90"></span>
+      </a>
+      <ul class="pl-5 mt-2 hidden group-[.selected]:block">
+
+        @for (subopcion of getOpciones(opcion.id); track $index) {
+        <li class="mb-4">
+          <a [routerLink]="subopcion.url" [routerLinkActive]="'text-blue-500'"
+            class=" text-sm flex items-center hover:text-[--color-primary] before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-800 before:mr-3">
+            {{subopcion.nombre}}</a>
+        </li>
+        } <!-- END @for (subopcion of getOpciones(opcion.id); track $index) -->
+
+      </ul>
+    </li>
+    } <!-- END @if (item.tipo == 'Opción') -->
+
+    } <!-- END @for (item of getOpciones(CurrentModule.id); track $index) -->
+
+    } <!-- END  @if (CurrentModule) -->
+
+  </ul>
+</div>

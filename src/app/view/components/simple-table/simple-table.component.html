@@ -1,0 +1,43 @@
+<nz-table @fadeInUp #smallTable #sortTable [nzLoading]="IsLoading" [nzShowSizeChanger]="true" nzSize="small"
+  [nzData]="table.data">
+  <thead>
+    <tr>
+      @if (table.actions?.length!>0) {
+      <th class="{{table.cssClass}}"></th>
+      }
+      @for (column of table.header; track $index) {
+      <th nzCustomFilter [nzSortFn]="column.compare">
+        {{ column.header }}
+      </th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of smallTable.data; track $index) {
+    <tr>
+      @if (table.actions?.length!>0) {
+      <td>
+        @for (action of table.actions; track $index) {
+        <button (click)="clickAction(data,action.action)" nz-button nzType="primary" [nzSize]="'small'" nz-tooltip
+          nzTooltipTitle="{{action.tooltip}}" nzTooltipPlacement="bottom" [nzTooltipColor]="'blue'"><span nz-icon
+            nzType="{{action.icon}}"></span></button>
+        }
+      </td>
+      }
+      @for (item of table.header; track $index) {
+      @if (item.type=='text') {
+      <td class="font-medium text-xs {{item.cssClass}}">{{ data[item.field] }}</td>
+      }
+      @if (item.type =='date') {
+      <td class="font-medium text-xs {{item.cssClass}}">{{ data[item.field]| date : 'dd/MM/yyyy' }}</td>
+      }
+
+      @if (item.type =='decimal') {
+      <td class="font-medium text-xs {{item.cssClass}}">{{ data[item.field]| number:'1.2-2' }}</td>
+      }
+
+      }
+    </tr>
+    }
+  </tbody>
+</nz-table>

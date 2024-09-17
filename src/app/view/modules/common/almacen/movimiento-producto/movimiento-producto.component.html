@@ -1,0 +1,5 @@
+<nz-divider nzText="{{selectData?.nombreAlmacen}} - {{selectData?.nombreLargoProducto}}"
+  style="margin: 10px 0px 5px;"></nz-divider>
+<app-auto-filters-with-button class="mb-2" [buttonGroup]="[]" [inputs]="component.filterOptions"
+  [currentFilter]="component.filterOptions.currentFilter"></app-auto-filters-with-button>
+<app-simpletable [table]="component.table" [IsLoading]="IsLoading"></app-simpletable>

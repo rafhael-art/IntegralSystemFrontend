@@ -1,0 +1,97 @@
+<div class="flex h-screen antialiased text-gray-900 bg-blue-gray-100 dark:bg-dark dark:text-light">
+  <div class="flex flex-shrink-0 transition-all">
+    <div class="flex flex-shrink-0 transition-all">
+
+      <!-- Mobile bottom bar -->
+      <nav
+        class="fixed inset-x-0 bottom-0 flex flex-row-reverse items-center justify-between px-4 py-2 bg-white border sm:hidden shadow border-primary-100 rounded-t-xl">
+        @for (item of getModulos; track $index) {
+        <button @fadeInUp (click)="moduleClick(item.nombre)"
+          class="p-2 transition-colors rounded-sm shadow-md hover:bg-primary-darker hover:text-white {{getActivateModule(item.nombre)}}">
+          <span nz-icon nzType="{{item.icono}}" nzTheme="outline" class="text-2xl leading-[0]"></span>
+        </button>
+        }
+
+        <div class="relative flex items-center flex-shrink-0 p-2" (click)="toggleMenu()">
+          <button @scaleIn class="transition-opacity rounded-sm opacity-80 hover:opacity-100">
+            <span nz-icon nzType="user" nzTheme="outline" class="text-2xl leading-[0]"></span>
+          </button>
+          @if(isOpen){
+          <div (click)="closeMenu()" tabindex="-1" id="userMenu"
+            class="absolute w-48 py-1 mt-2 origin-bottom-left bg-white rounded-md shadow-lg left-10 bottom-14 focus:outline-none"
+            role="menu" aria-orientation="vertical" aria-label="user menu">
+            <a [routerLink]="'/mi-cuenta'" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem">
+              Mi perfil
+            </a>
+
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Salir</a>
+          </div>
+          }
+
+        </div>
+
+
+      </nav>
+      <!--End Mobile bottom bar -->
+      <nav
+        class="z-20 flex-col items-center flex-shrink-0 hidden w-16 py-4 bg-white border-r-2 shadow-md sm:flex  border-primary-100">
+        <!-- Logo -->
+        <div class="flex-shrink-0 py-4">
+          <a href="#">
+            <img @scaleIn class="w-10 h-auto" src="./../../../assets/img/favicon.ico" alt="K-UI" />
+          </a>
+        </div>
+        <!--End Logo -->
+        <div class="flex flex-col items-center flex-1 p-2 space-y-4">
+          @for (item of getModulos; track $index)
+          {
+          <button @fadeInUp nz-tooltip nzTooltipTitle="{{item.nombre}}" nzTooltipColor="var(--color-primary)"
+            (click)="moduleClick(item.nombre)"
+            class="p-2 transition-colors rounded-sm shadow-md hover:bg-primary-darker hover:text-white {{getActivateModule(item.nombre)}}">
+            <span nz-icon nzType="{{item.icono}}" nzTheme="outline" class="text-2xl leading-[0]"></span>
+          </button>
+          }
+
+
+        </div>
+        <div class="relative flex items-center flex-shrink-0 p-2 align-top" (click)="toggleMenu()">
+          <button @scaleIn
+            class="bg-[--color-primary] rounded-full text-white p-2 transition-opacity opacity-80 hover:opacity-100">
+            <span nz-icon nzType="user" nzTheme="outline" class="text-2xl leading-[0]"></span>
+          </button>
+          @if(isOpen){
+          <div (click)="closeMenu()" tabindex="-1" id="userMenu"
+            class="absolute w-48 py-1 mt-2 origin-bottom-left bg-white rounded-md shadow-lg left-10 bottom-14 focus:outline-none"
+            role="menu" aria-orientation="vertical" aria-label="user menu">
+            <a [routerLink]="'/mi-cuenta'" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem">
+              Mi perfil
+            </a>
+            <a (click)="Logout()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem">Salir</a>
+          </div>
+          }
+
+        </div>
+      </nav>
+      @if (isSidebarOpen) {
+      <div [@slideInOut]
+        [class]="'fixed inset-y-0 left-0 z-10 flex-shrink-0 w-64 bg-white border-r-2 shadow-lg sm:left-16 border-primary-100  sm:w-72 lg:static lg:w-64 transform transition-transform duration-300'">
+        <div class="flex flex-col justify-between w-full h-full">
+
+          <app-menu-navigation (close)="closeNavBar($event)" [currentModule]="getCurrentModule()"
+            [menu]="menu"></app-menu-navigation>
+
+          <button (click)="isSidebarOpen = false; isOpen = false" class="w-full h-10 bg-[--color-primary] text-white">
+            <span nz-icon nzType="left" nzTheme="outline"></span>
+          </button>
+        </div>
+
+      </div>
+
+      }
+    </div>
+
+  </div>
+</div>

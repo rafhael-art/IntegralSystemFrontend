@@ -1,0 +1,61 @@
+<div class="flex flex-col sm:flex-row gap-4">
+
+  <div class="w-full sm:w-1/2 rounded shadow-lg border-solid border-[1px] border-gray-100">
+    <div
+      class="w-full text-center border-solid border-b-[1px] border-b-gray-100 h-10  items-center justify-center flex gap-1">
+      <span nz-icon nzType="user-switch" nzTheme="outline"></span>
+      <h1 class=" font-light text-lg">Datos personales</h1>
+    </div>
+    <div class="w-full p-5">
+      <form [formGroup]="form" nz-form class="flex flex-col items-center justify-center">
+
+        <nz-form-item>
+          <nz-form-label nzFor="codigo" nz>Código</nz-form-label>
+          <nz-form-control class="w-40">
+            <input id="codigo" nz-input nzSize="small" formControlName="codigo" />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzFor="nombreUsuario" nz>Nombre</nz-form-label>
+          <nz-form-control class="w-40">
+            <input id="nombreUsuario" nz-input nzSize="small" formControlName="nombreUsuario" />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzFor="descripcionPuntoVenta" nz>Punto Venta </nz-form-label>
+          <nz-form-control class="w-32">
+            <input id="descripcionPuntoVenta" nz-input nzSize="small" formControlName="descripcionPuntoVenta" />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzFor="activo" nz>Estado </nz-form-label>
+          <nz-form-control class="w-32">
+            <nz-select id="activo" nzSize="small" formControlName="activo">
+              <nz-option [nzValue]="true" nzLabel="Activo"></nz-option>
+              <nz-option [nzValue]="false" nzLabel="Inactivo"></nz-option>
+            </nz-select>
+          </nz-form-control>
+
+        </nz-form-item>
+
+
+      </form>
+    </div>
+  </div>
+
+  <div class="w-full sm:w-1/2 rounded shadow-lg border-solid border-[1px] border-gray-100">
+    <div
+      class="w-full text-center border-solid border-b-[1px] border-b-gray-100 h-10  items-center justify-center flex gap-1">
+      <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+      <h1 class=" font-light text-lg">Accesos</h1>
+    </div>
+    <div class="w-full">
+      <nz-tree #nzTreeComponent nzShowIcon [nzData]="nodes"></nz-tree>
+    </div>
+  </div>
+
+
+</div>

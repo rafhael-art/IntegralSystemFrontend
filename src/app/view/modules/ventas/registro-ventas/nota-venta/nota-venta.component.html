@@ -1,0 +1,7 @@
+<app-auto-filters-with-button [inputs]="component.filterOptions" [buttonGroup]="component.buttonGroup"
+  (formSubmit)="clickEvent($event)" (buttonGroupAction)="clickEvent($event)"
+  [currentFilter]="component.filterOptions.currentFilter"
+  [columnItem]="component.table.columns"></app-auto-filters-with-button>
+
+<app-table-with-filter [table]="component.table" (action)="clickEvent($event)"
+  [IsLoading]="component.filterOptions.IsLoading"></app-table-with-filter>

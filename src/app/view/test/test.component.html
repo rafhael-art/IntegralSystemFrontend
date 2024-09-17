@@ -1,0 +1,28 @@
+<nz-table #nzTable [nzData]="listOfDisplayData">
+  <thead>
+    <tr>
+      <th *ngFor="let column of table.columns" nzCustomFilter [(nzSortOrder)]="column.sortOrder"
+        (nzSortOrderChange)="sortColumn(column, $event)">
+        {{ column.name }}
+        <nz-filter-trigger [(nzVisible)]="column.filterVisible" [nzActive]="column.searchValue.length > 0"
+          [nzDropdownMenu]="menu">
+          <span nz-icon nzType="search"></span>
+        </nz-filter-trigger>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <div class="ant-table-filter-dropdown">
+            <div class="search-box">
+              <input type="text" nz-input placeholder="Search {{ column.name }}" [(ngModel)]="column.searchValue" />
+              <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+              <button nz-button nzSize="small" (click)="reset(column)">Reset</button>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of nzTable.data">
+      <td *ngFor="let column of table.columns">{{ data[column.key] }}</td>
+    </tr>
+  </tbody>
+</nz-table>

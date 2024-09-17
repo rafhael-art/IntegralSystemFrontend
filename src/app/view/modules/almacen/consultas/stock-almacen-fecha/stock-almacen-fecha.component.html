@@ -1,2 +1,16 @@
-<app-auto-filters-with-button></app-auto-filters-with-button>
-<app-simpletable></app-simpletable>
+<app-auto-filters-with-button [inputs]="component.filterOptions" [buttonGroup]="component.buttonGroup"
+  (formSubmit)="clickEvent($event)" (buttonGroupAction)="clickEvent($event)"
+  [currentFilter]="component.filterOptions.currentFilter"
+  [columnItem]="component.table.columns"></app-auto-filters-with-button>
+
+<app-table-with-filter [table]="component.table" (action)="clickEvent($event)"
+  [IsLoading]="component.filterOptions.IsLoading"></app-table-with-filter>
+
+
+<nz-modal nzWidth="1000" [nzFooter]="null" [nzTitle]="undefined" nzCentered [(nzVisible)]="isVisible"
+  (nzOnCancel)="isVisible=false" [nzClosable]="true">
+
+  <app-movimiento-producto *nzModalContent [selectData]="selectData"
+    [filter]="component.filterOptions.currentFilter"></app-movimiento-producto>
+
+</nz-modal>

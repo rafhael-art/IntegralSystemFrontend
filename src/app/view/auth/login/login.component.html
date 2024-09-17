@@ -1,0 +1,36 @@
+<section class="bg-violet-50 min-h-screen flex items-center justify-center">
+  <!-- login container -->
+  <div class="bg-white flex rounded-2xl shadow-2xl max-w-3xl p-5 items-center">
+    <!-- form -->
+    <div class="md:w-1/2 px-8 md:px-16">
+      <h2 class="font-bold text-2xl text-[#002D74]">Iniciar Sessión</h2>
+      <p class="text-xs mt-4 text-[#002D74]">Ingrese su usuario y contraseña para ingresar</p>
+
+      <form class="flex flex-col gap-4" [formGroup]="form" (ngSubmit)="login()">
+
+        <input formControlName="usuario" class="uppercase p-2 mt-8 rounded-xl border" type="text" placeholder="Usuario">
+
+        <input formControlName="password" class="p-2 rounded-xl border w-full" type="password" placeholder="Contraseña">
+
+        <div class="flex flex-row items-center gap-1 justify-between">
+
+          <label for="anio" class="font-bold text-sm text-[#002D74]">Año ejercicio :</label>
+
+          <select formControlName="anioEjercico" name="anio" id="anio" class="w-32 text-center rounded-xl border p-1">
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+          </select>
+
+
+        </div>
+
+        <button class="bg-violet-800 rounded-xl text-white py-2 hover:scale-105 duration-300">Login</button>
+      </form>
+    </div>
+    <!-- image -->
+    <div class="md:block hidden w-1/2">
+      <img class="rounded-2xl"
+        src="https://textilbalsareny.com/wp-content/uploads/2021/05/proveedores-de-telas-en-Barcelona.jpg.png">
+    </div>
+  </div>
+</section>

@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivationEnd, Router, RouterOutlet, RouterModule } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip'
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { Subscription, filter, map } from 'rxjs';
+import { Breadcrumb } from './breadcrumb/breadcrumb.interface';
+import SideBarComponent from './side-bar/side-bar.component';
 
 @Component({
   selector: 'app-layout',
@@ -13,7 +16,9 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
     NzIconModule,
     NzToolTipModule,
     NzMenuModule,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    RouterModule,
+    SideBarComponent
   ],
   templateUrl: './layout.component.html',
   styles: [
@@ -23,42 +28,39 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
       };
       [nz-menu]{
         color: 'red'
-      }
+      };
+      .active {
+  background-color: #f0f0f0;
+  color: #333;
+};
     `
   ]
 })
-export default class LayoutComponent {
+export default class LayoutComponent implements OnDestroy, OnInit {
 
-  selectedMenuItemContabilidad: string | null = null;
-  selectedMenuItemSistema: string | null = null;
-  selectedMenuItemCompras: string | null = null;
-  selectedMenuItemVentas: string | null = null;
-  selectedMenuItemAlmacen: string | null = null;
-
-
-  selectMenuItem(menu: string, item: string) {
-    const menuItems: { [key: string]: string | null } = {
-      'contabilidad': null,
-      'sistema': null,
-      'compras': null,
-      'ventas': null,
-      'almacen': null
-    };
-
-    menuItems[menu] = item;
-    for (const key in menuItems) {
-      if (key !== menu) {
-        menuItems[key] = null;
-      }
+  public tituloSubs$!: Subscription;
+  public data: Breadcrumb[] = []
+  constructor(private router: Router) {
+    this.tituloSubs$ = this.getArgumentosRuta().subscribe((data: any) => {
+      this.data = Object.values(data)
     }
+    );
+  }
+  ngOnInit(): void {
 
-    this.selectedMenuItemContabilidad = menuItems['contabilidad'];
-    this.selectedMenuItemSistema = menuItems['sistema'];
-    this.selectedMenuItemCompras = menuItems['compras'];
-    this.selectedMenuItemVentas = menuItems['ventas'];
-    this.selectedMenuItemAlmacen = menuItems['almacen'];
   }
 
+  ngOnDestroy(): void {
+    this.tituloSubs$.unsubscribe();
+  }
 
+  getArgumentosRuta() {
+    return this.router.events
+      .pipe(
+        filter((event): event is ActivationEnd => event instanceof ActivationEnd),
+        filter((event: ActivationEnd) => event.snapshot.firstChild === null),
+        map((event: ActivationEnd) => event.snapshot.data)
+      );
+  }
 
 }

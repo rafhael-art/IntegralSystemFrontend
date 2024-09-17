@@ -1,22 +1,72 @@
 <form nz-form [autocomplete]="'off'">
   <div class="btn-wrapper" nz-flex [nzGap]="'1'" [nzWrap]="'wrap'">
-    <nz-form-item>
-      <nz-form-label nzFor="almacen">Almacén</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input id="almacen" nz-input nzSize="small" class="" />
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label nzFor="hasta" nzLabelAlign="right">Hasta</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input id="hasta" nz-input nzSize="small" />
+
+    @for (item of inputs.Inputs; track $index) {
+    @if(item.type =='text'){
+
+    <nz-form-item @fadeInRight>
+      <nz-form-label nzFor="{{item.name}}" nz>{{item.label}}</nz-form-label>
+      <nz-form-control class="{{item.cssClass}}">
+        <input id="{{item.name}}" nz-input nzSize="small" [placeholder]="item.placeHolder" [(ngModel)]="item.value" />
       </nz-form-control>
     </nz-form-item>
 
-    <button nz-button [nzSize]="'small'" nzType="primary" class="mt-1">
+    }
+
+    @if(item.type =='date'){
+    <nz-form-item @fadeInRight>
+      <nz-form-label nzFor="{{item.name}}" nz>{{item.label}}</nz-form-label>
+      <nz-form-control class="{{item.cssClass}}">
+        <nz-date-picker [nzPlaceHolder]="[item.placeHolder]" [nzId]="item.name" nz-input [nzFormat]="'dd/MM/yyyy'"
+          [(ngModel)]="item.value" nzSize="small" [ngModelOptions]="{standalone: true}"
+          [nzAllowClear]="item.ennableClear"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+    }
+
+    @if (item.type =='select') {
+    <nz-form-item @fadeInRight>
+      <nz-form-label nzFor="{{item.name}}" nz>{{item.label}}</nz-form-label>
+      <nz-form-control class="{{item.cssClass}}">
+        <nz-select [nzId]="item.name" nzShowSearch nzAllowClear nzPlaceHolder="{{item.placeHolder}}"
+          [(ngModel)]="item.value" nzSize="small" [ngModelOptions]="{standalone: true}"
+          [nzAllowClear]="item.ennableClear">
+          @if (item.data.length>0) {
+          @for (option of item.data; track $index) {
+          <nz-option nzLabel="{{option.descripcion}}" nzValue="{{option.id}}"></nz-option>
+          }
+          }
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    }
+
+    }
+
+    @if (inputs.Inputs.length>0) {
+    <button @fadeInRight (click)="onFormSubmit()" nz-button [nzSize]="'small'" nzType="primary" class="mt-1"
+      [nzLoading]="inputs.IsLoading">
       <span nz-icon nzType="search"></span>
-      Search
+      Buscar
     </button>
+    }
+    <app-button-group @fadeInRight class="mt-1 ml-1" [buttons]="buttonGroup"
+      (action)="buttonGroupAcction($event)"></app-button-group>
+
+    @for (item of inputs.ReportButtons; track $index) {
+
+    <app-report-button @fadeInRight [index]="$index" (click)="ejecutarAccionEnHijo($event)" [component]="item"
+      @fadeInRight class="mt-1 ml-1">
+    </app-report-button>
+
+    }
+
+    @if (showClearFilter) {
+    <button (click)="limpiarFiltros()" @fadeInRight nz-button [nzSize]="'small'" nzType="primary" nzDanger class="mt-1"
+      nz-tooltip nzTooltipTitle="Limpiar Filtros" nzTooltipPlacement="bottom" [nzTooltipColor]="'blue'">
+      <span nz-icon nzType="clear" nzTheme="outline"></span>
+    </button>
+    }
 
   </div>
 </form>

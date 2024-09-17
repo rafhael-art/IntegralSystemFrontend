@@ -1,0 +1,63 @@
+<nz-table @fadeInUp #nzTable [nzLoading]="IsLoading" [nzData]="listOfDisplayData" nzSize="small"
+  [nzShowSizeChanger]="true" [nzScroll]="isScrolled ? { x: '1000px' } : {x:undefined}">
+  <thead>
+    <tr>
+      @if (table.actions?.length!>0) {
+      <th nzLeft class="{{table.actionCssClass}}"></th>
+      }
+      @for (column of table.columns; track $index) {
+      <th nzCustomFilter [(nzSortOrder)]="column.sortOrder" (nzSortOrderChange)="sortColumn(column, $event)"
+        [class]="column.cssClassWidth">
+        {{ column.name }}
+        <nz-filter-trigger [(nzVisible)]="column.filterVisible" [nzActive]="column.searchValue.length > 0"
+          [nzDropdownMenu]="menu">
+          <span nz-icon nzType="search"
+            [class]="column.searchValue.trim() ==''?'text-[--color-primary] font-bold':'text-rose-500 font-bold'"></span>
+        </nz-filter-trigger>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <div class="ant-table-filter-dropdown">
+            <div class="search-box">
+              <input type="text" nz-input placeholder="Buscar {{ column.name }}" [(ngModel)]="column.searchValue" />
+              <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Buscar</button>
+              <button nz-button nzSize="small" [nzDanger]="column.searchValue.trim() ==''"
+                [nzType]="column.searchValue.trim() ==''?'primary': 'default'"
+                (click)="reset(column)">{{column.searchValue.trim() ==''?'Cancelar': 'Limpiar'}}</button>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+      </th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of nzTable.data; track $index) {
+    <tr>
+      @if (table.actions?.length!>0) {
+      <td [class]="table.actionCssClass +' flex gap-x-1 '" nzLeft>
+        @for (action of table.actions; track $index) {
+        <button (click)="clickAction(data,action.action)" nz-button nzType="primary" [nzDanger]="action.icon=='delete'"
+          [nzSize]="'small'" nz-tooltip nzTooltipTitle="{{action.tooltip}}" nzTooltipPlacement="bottom"
+          [nzTooltipColor]="action.icon =='delete'? 'red': 'blue'"><span nz-icon
+            nzType="{{action.icon}}"></span></button>
+        }
+      </td>
+      }
+      @for (column of table.columns; track $index) {
+      @if (column.type=='text') {
+      <td class="font-medium text-xs {{column.cssClassAlign}} {{column.cssClassWidth}}">{{ data[column.key] }}</td>
+      }
+      @if (column.type =='date') {
+      <td class="font-medium text-xs {{column.cssClassAlign}} {{column.cssClassWidth}}">{{ data[column.key]| date :
+        'dd/MM/yyyy' }}</td>
+      }
+
+      @if (column.type =='decimal') {
+      <td class="font-medium text-xs {{column.cssClassAlign}} {{column.cssClassWidth}}">{{ data[column.key]|
+        number:'1.2-2' }}</td>
+      }
+      }
+    </tr>
+    }
+
+  </tbody>
+</nz-table>

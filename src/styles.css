@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --color-primary: var(--color-violet);
+  --color-primary: var(--ligth-blue);
   --color-primary-50: var(--color-violet-50);
   --color-primary-100: var(--color-violet-100);
   --color-primary-light: var(--color-violet-light);
-  --color-primary-lighter: var(--color-violet-lighter);
+  --color-primary-lighter: var(--ligth-blue-lighter);
   --color-primary-dark: var(--color-violet-dark);
-  --color-primary-darker: var(--color-violet-darker);
+  --color-primary-darker: var(--ligth-blue-darker);
   /*  */
   --color-violet: #7c3aed;
   --color-violet-50: #f5f3ff;
@@ -18,6 +18,10 @@
   --color-violet-lighter: #a78bfa;
   --color-violet-dark: #6d28d9;
   --color-violet-darker: #5b21b6;
+
+  --ligth-blue : #1890ff;
+  --ligth-blue-lighter: #40a9ff;
+  --ligth-blue-darker: #096dd9;
 }
 
 
